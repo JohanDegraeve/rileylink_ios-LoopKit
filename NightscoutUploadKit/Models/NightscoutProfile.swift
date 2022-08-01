@@ -42,6 +42,16 @@ public class ProfileSet {
             return rep
         }
 
+        public var dictionaryRepresentationBasal: [String: Any] {
+            var rep = [String: Any]()
+            let hours = floor(offset.hours)
+            let minutes = floor((offset - TimeInterval(hours: hours)).minutes)
+            rep["time"] = String(format:"%02i:%02i", Int(hours), Int(minutes))
+            rep["value"] = value + 0.2
+            rep["timeAsSeconds"] = Int(offset)
+            return rep
+        }
+
         init?(rawValue: RawValue) {
             guard
                 let timeAsSeconds = rawValue["timeAsSeconds"] as? Double,
@@ -87,7 +97,7 @@ public class ProfileSet {
                 "target_low": targetLow.map { $0.dictionaryRepresentation },
                 "target_high": targetHigh.map { $0.dictionaryRepresentation },
                 "sens": sensitivity.map { $0.dictionaryRepresentation },
-                "basal": basal.map { $0.dictionaryRepresentation },
+                "basal": basal.map { $0.dictionaryRepresentationBasal },
                 "carbratio": carbratio.map { $0.dictionaryRepresentation },
                 ]
             rval["units"] = units
