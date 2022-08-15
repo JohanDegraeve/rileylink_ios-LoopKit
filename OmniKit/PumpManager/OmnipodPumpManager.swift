@@ -1616,8 +1616,8 @@ extension OmnipodPumpManager: PumpManager {
         }
     }
 
-    public func enactTempBasal(unitsPerHour: Double, for duration: TimeInterval, completion: @escaping (PumpManagerError?) -> Void) {
-        runTemporaryBasalProgram(unitsPerHour: unitsPerHour, for: duration, automatic: true, completion: completion)
+    public func enactTempBasal(unitsPerHour: Double, for duration: TimeInterval, automatic: Bool = true, completion: @escaping (PumpManagerError?) -> Void) {
+        runTemporaryBasalProgram(unitsPerHour: unitsPerHour, for: duration, automatic: automatic, completion: completion)
     }
 
     public func runTemporaryBasalProgram(unitsPerHour: Double, for duration: TimeInterval, automatic: Bool, completion: @escaping (PumpManagerError?) -> Void) {
@@ -1630,8 +1630,8 @@ extension OmnipodPumpManager: PumpManager {
         // Round to nearest supported rate
         let rate = roundToSupportedBasalRate(unitsPerHour: unitsPerHour)
 
-        let acknowledgementBeep = beepPreference.shouldBeepForCommand(automatic: automatic)
-        let completionBeep = beepPreference.shouldBeepForManualCommand && !automatic
+        let acknowledgementBeep = false
+        let completionBeep = false
 
         let rileyLinkSelector = self.rileyLinkDeviceProvider.firstConnectedDevice
         self.podComms.runSession(withName: "Enact Temp Basal", using: rileyLinkSelector) { (result) in
