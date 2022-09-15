@@ -1616,8 +1616,8 @@ extension OmnipodPumpManager: PumpManager {
         }
     }
 
-    public func enactTempBasal(unitsPerHour: Double, for duration: TimeInterval, completion: @escaping (PumpManagerError?) -> Void) {
-        runTemporaryBasalProgram(unitsPerHour: unitsPerHour, for: duration, automatic: true, completion: completion)
+    public func enactTempBasal(unitsPerHour: Double, for duration: TimeInterval, automatic: Bool = true, manuallyEntered: Bool = false, completion: @escaping (PumpManagerError?) -> Void) {
+        runTemporaryBasalProgram(unitsPerHour: unitsPerHour, for: duration, automatic: automatic, completion: completion)
     }
 
     public func runTemporaryBasalProgram(unitsPerHour: Double, for duration: TimeInterval, automatic: Bool, completion: @escaping (PumpManagerError?) -> Void) {
