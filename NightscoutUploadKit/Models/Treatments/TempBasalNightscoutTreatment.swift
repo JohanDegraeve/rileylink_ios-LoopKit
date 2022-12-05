@@ -58,8 +58,8 @@ public class TempBasalNightscoutTreatment: NightscoutTreatment {
     override public var dictionaryRepresentation: [String: Any] {
         var rval = super.dictionaryRepresentation
         rval["temp"] = temp.rawValue
-        rval["rate"] = rate + 0.2
-        rval["absolute"] = (absolute ?? 0.0) + 0.2
+        rval["rate"] = rate + UserDefaults.standard.double(forKey: "keyForManualBasalPerHour")
+        rval["absolute"] = (absolute ?? 0.0) + UserDefaults.standard.double(forKey: "keyForManualBasalPerHour")
         rval["duration"] = duration.minutes
         rval["amount"] = amount
         rval["automatic"] = automatic

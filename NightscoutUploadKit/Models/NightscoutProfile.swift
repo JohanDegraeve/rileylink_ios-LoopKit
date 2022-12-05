@@ -47,7 +47,7 @@ public class ProfileSet {
             let hours = floor(offset.hours)
             let minutes = floor((offset - TimeInterval(hours: hours)).minutes)
             rep["time"] = String(format:"%02i:%02i", Int(hours), Int(minutes))
-            rep["value"] = value + 0.2
+            rep["value"] = value + UserDefaults.standard.double(forKey: "keyForManualBasalPerHour")
             rep["timeAsSeconds"] = Int(offset)
             return rep
         }
